@@ -1,0 +1,12 @@
+rawdf<-read.csv("ftp://192.168.1.15/bigdata/BigDataSet/COVID/COVID19_line_list_data.csv")
+df<-rawdf[c(7,10)]
+head(df)
+Tcountry<-table(df$country)
+pdf("krishna.pdf")
+#barplot(Tcountry)
+TcountryDecr<-sort(Tcountry,decreasing=TRUE)
+#barplot(TcountryDecr[1:10])
+#barplot(TcountryDecr[1:10],col="Green")
+#barplot(TcountryDecr[1:10],col="Green",main="Top Ten COVID affected Countries")
+barplot(TcountryDecr[1:10],col="Green",main="Top Ten COVID infected Countries",ylab="No of affected",xlab="Name of the country")
+dev.off()

@@ -1,0 +1,14 @@
+library(reshape)
+library(tidyverse)
+library(dplyr)
+rawdf<-read.csv("ftp://192.168.1.15/bigdata/BigDataSet/COVID/2019_nCoV_data.csv")
+head(rawdf)
+df<-rawdf[c(4,6,7,8)]
+head(df)
+dfm<-melt(data=df,id.vars=c(1),measure.vars=c(2,3,4))
+final<-data.frame(cast(dfm,formula=Country~variable,sum))
+row.names(final)<-final$Country
+final1<-subset(final,select=c(2,3,4))
+kri<-final1[order(desc(final1$Confirmed)),]
+kri<-kri[2:6,]
+barplot(t(kri),beside=TRUE,col=c("Brown","Blue","Green"),legend=TRUE)
